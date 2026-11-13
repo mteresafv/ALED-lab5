@@ -135,7 +135,7 @@ public class Patient extends Thread {
 		System.out.println("Patient " + this.number + " is moving from " + this.location + " to " + transfer.getTo());
 		EmergencyRoomGUI.getInstance().animateTransfer(this, transfer);
 		this.location = transfer.getTo();
-	}
+	} 
 
 	/**
 	 * Simulates the treatment of the Patient at its current location. Therefore,

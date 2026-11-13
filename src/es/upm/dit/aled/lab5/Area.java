@@ -46,7 +46,7 @@ public class Area {
 
 	/**
 	 * Returns the name of the Area.
-	 * 
+	 *  
 	 * @return The name.
 	 */
 	public String getName() {
@@ -97,7 +97,25 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO: method enter
-	
+	public synchronized void enter (Patient p) {
+		while (numPatients >=capacity) {
+			try {
+				p.wait(); // las hebras siempre esperan dentro del while!!
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (numPatients < capacity) {
+			numPatients ++;
+			if(waiting > 0) {
+				waiting--;
+			}
+		} else {
+			waiting++;
+		}
+		
+	}
 	/**
 	 * Thread safe method that allows a Patient to exit the area. After the Patient
 	 * has left, this method notifys all waiting Patients.
@@ -105,6 +123,12 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO method exit
+	public synchronized void exit (Patient p) {
+		
+		
+		
+		notifyAll();
+	}
 	
 	/**
 	 * Returns the capacity of the Area. This method must be thread safe.
@@ -112,6 +136,10 @@ public class Area {
 	 * @return The capacity.
 	 */
 	// TODO: method getCapacity
+	public int getCapacity() {
+		return capacity;
+	}
+
 	
 	/**
 	 * Returns the current number of Patients being treated at the Area. This method must be thread safe.
@@ -119,14 +147,20 @@ public class Area {
 	 * @return The number of Patients being treated.
 	 */
 	// TODO: method getNumPatients
-
+	public int getNumPatients() {
+		return numPatients;
+	}
 	/**
 	 * Returns the current number of Patients waiting to be treated at the Area. This method must be thread safe.
 	 * 
 	 * @return The number of Patients waiting to be treated.
 	 */
 	// TODO method getWaiting
-
+	public int getWaiting() {
+		return waiting;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(name);

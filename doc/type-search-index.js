@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"es.upm.dit.aled.lab5","l":"Area"}];updateSearchResults();
