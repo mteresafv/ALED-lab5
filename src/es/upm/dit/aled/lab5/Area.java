@@ -108,9 +108,11 @@ public class Area {
 		
 		if (numPatients < capacity) {
 			numPatients ++;
+			
 			if(waiting > 0) {
 				waiting--;
 			}
+			
 		} else {
 			waiting++;
 		}
